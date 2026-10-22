@@ -1,3 +1,8 @@
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
+GRANT ALL ON SCHEMA public TO marketplace_admin;
+GRANT ALL ON SCHEMA public TO public;
+
 
 -- 1. Пользователи
 CREATE TABLE users (
@@ -31,6 +36,7 @@ CREATE TABLE products (
     seller_id BIGINT NOT NULL REFERENCES sellers(id) ON DELETE RESTRICT,
     category_id BIGINT NOT NULL REFERENCES categories(id),
     title TEXT NOT NULL,
+    description text,
     price NUMERIC(12,2) NOT NULL CHECK (price > 0),
     is_active BOOLEAN NOT NULL DEFAULT TRUE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT now()
@@ -79,7 +85,7 @@ CREATE TABLE order_items (
 -- 10. Платежи
 CREATE TABLE payments (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    order_id BIGINT NOT NULL UNIQUE REFERENCES orders(id) ON DELETE CASCADE,
+    order_id BIGINT NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
     amount NUMERIC(12,2) NOT NULL CHECK (amount > 0),
     status TEXT NOT NULL DEFAULT 'pending',
     paid_at TIMESTAMPTZ
