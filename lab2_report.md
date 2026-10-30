@@ -29,7 +29,7 @@ FROM products;
 ```sql
 SELECT  categories.NAME as category_name, products.title as product_name, products.price
 from products
-left JOIN categories ON products.category_id = categories.id
+inner JOIN categories ON products.category_id = categories.id
 where (categories.name = 'Одежда' or categories.name = 'Книги') and (products.price < 1500);
 ```
 
