@@ -11,3 +11,6 @@ Thumbs.db
 *.exe
 # VS Code
 .vscode/
+docker-compose.yml
+pgdata/
+test.sql
